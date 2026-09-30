@@ -83,7 +83,18 @@ useEffect(() => {
     style={styles.card}
     onClick={() => navigate(`/menu/${shop._id}`)}
   >
-    <div style={styles.cardEmoji}>{shop.emoji}</div>
+    <div style={styles.cardImageBox}>
+  {shop.image ? (
+    <img
+      src={shop.image}
+      alt={shop.name}
+      style={styles.cardImage}
+      onError={e => { e.target.style.display = 'none' }}
+    />
+  ) : (
+    <span style={{ fontSize: '40px' }}>{shop.emoji}</span>
+  )}
+</div>
     <div style={styles.cardBody}>
       <div style={styles.cardTop}>
         <span style={{
@@ -122,7 +133,22 @@ const styles = {
   grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '16px' },
   card: { background: '#fff', borderRadius: '16px', overflow: 'hidden', cursor: 'pointer', boxShadow: '0 2px 12px rgba(0,0,0,0.06)', transition: 'transform 0.2s' },
   cardEmoji: { background: '#f0efff', fontSize: '40px', textAlign: 'center', padding: '24px' },
-  cardBody: { padding: '14px 16px' },
+  cardImageBox: {
+  width: '100%',
+  height: '140px',
+  overflow: 'hidden',
+  borderRadius: '12px 12px 0 0',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  background: '#f0efff',
+},
+cardImage: {
+  width: '100%',
+  height: '100%',
+  objectFit: 'cover',
+},
+cardBody: { padding: '14px 16px' },
   cardTop: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' },
   badge: { fontSize: '11px', fontWeight: '700', padding: '3px 8px', borderRadius: '20px' },
   rating: { fontSize: '12px', color: '#f59e0b', fontWeight: '700' },
